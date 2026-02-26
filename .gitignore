@@ -1,0 +1,4 @@
+target/
+*.log
+terraform/.terraform/
+terraform/terraform.tfstate*
