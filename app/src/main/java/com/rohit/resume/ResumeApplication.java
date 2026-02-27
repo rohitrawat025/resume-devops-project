@@ -2,6 +2,12 @@ package com.rohit.resume;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import jakarta.persistence.*;
+import java.util.List;
 
 @SpringBootApplication
 public class ResumeApplication {
@@ -10,40 +16,52 @@ public class ResumeApplication {
     }
 }
 
+// --- DATABASE MODEL ---
 @Entity
-public class Profile {
+@Table(name = "profiles")
+class Profile {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
- @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- private Long id;
+    private String fullName;
+    private String email;
+    private String phone;
+    private String location;
 
- private String fullName;
- private String email;
- private String phone;
- private String location;
+    @Column(columnDefinition="TEXT")
+    private String summary;
 
- @Column(columnDefinition="TEXT")
- private String summary;
+    // Getters and Setters (Required for Spring to handle data)
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
+    public String getSummary() { return summary; }
+    public void setSummary(String summary) { this.summary = summary; }
 }
 
-public interface ProfileRepository extends JpaRepository<Profile, Long> {
+// --- DATABASE REPOSITORY ---
+@Repository
+interface ProfileRepository extends JpaRepository<Profile, Long> {
 }
 
+// --- API CONTROLLER ---
 @RestController
 @RequestMapping("/api/profile")
-public class ProfileController {
+class ProfileController {
 
- @Autowired
- private ProfileRepository repo;
+    @Autowired
+    private ProfileRepository repo;
 
- @GetMapping
- public List<Profile> getAll() {
-     return repo.findAll();
- }
+    @GetMapping
+    public List<Profile> getAll() {
+        return repo.findAll();
+    }
 }
-
-spring.datasource.url=${SPRING_DATASOURCE_URL}
-spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
-spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
-spring.jpa.hibernate.ddl-auto=update
-server.port=8080
