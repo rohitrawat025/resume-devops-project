@@ -1,14 +1,7 @@
 pipeline {
- agent any
+    agent { label 'agntnd-1' }
 
- stages {
-
-   stage('Checkout') {
-     steps {
-       git 'https://github.com/rohitrawat025/resume-devops-project.git'
-     }
-   }
-
+    stages {
    stage('Deploy') {
      steps {
        sh 'docker compose down'
