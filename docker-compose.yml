@@ -5,6 +5,7 @@ services:
  mysql:
    image: mysql:8
    container_name: mysql
+   restart: always
    environment:
      MYSQL_ROOT_PASSWORD: root
    volumes:
@@ -16,6 +17,7 @@ services:
  app:
    build: ./app
    container_name: app
+   restart: always
    depends_on:
      - mysql
    environment:
@@ -26,6 +28,7 @@ services:
  nginx:
     image: nginx:latest
     container_name: nginx
+    restart: always
     ports:
       - "80:81"  # Maps Host Port 80 to Container Port 81
     volumes:
