@@ -1,39 +1,25 @@
 pipeline {
-
     agent { label 'agntnd-1' }
 
+    options { timestamps() }
+
     triggers {
-        githubPush()     // 🔥 Auto trigger on GitHub push
-    }
-
-    options {
-        disableConcurrentBuilds()
-        timestamps()
-    }
-
-    environment {
-        COMPOSE_FILE = "docker-compose.yml"
+        githubPush()
     }
 
     stages {
 
+        stage('Clean Workspace') {
+            steps { cleanWs() }
+        }
+
         stage('Checkout Code') {
-            steps {
-                checkout scm
-            }
+            steps { checkout scm }
         }
 
-        stage('Docker Cleanup') {
+        stage('Build Docker Images') {
             steps {
-                sh '''
-                    docker compose down || true
-                    docker system prune -f || true
-                '''
-            }
-        }
-
-        stage('Build Images') {
-            steps {
+                sh 'docker compose down || true'
                 sh 'docker compose build --no-cache'
             }
         }
@@ -46,17 +32,14 @@ pipeline {
 
         stage('Verify Deployment') {
             steps {
-                sh 'docker ps'
+                sh 'sleep 15'
+                sh 'curl -f http://localhost:80/api/profile'
             }
         }
     }
 
     post {
-        success {
-            echo "✅ Deployment Successful"
-        }
-        failure {
-            echo "❌ Deployment Failed"
-        }
+        success { echo '✅ Deployment Successful' }
+        failure { echo '❌ Deployment Failed' }
     }
 }
