@@ -2,42 +2,57 @@ version: '3.8'
 
 services:
 
- mysql:
-   image: mysql:8
-   container_name: mysql
-   environment:
-     MYSQL_ROOT_PASSWORD: root
-   volumes:
-     - mysql_data:/var/lib/mysql
-     - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-   ports:
-     - "3306:3306"
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: resume_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
- app:
-   build: ./app
-   container_name: app
-   depends_on:
-     - mysql
-   environment:
-     SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/resume_db
-     SPRING_DATASOURCE_USERNAME: root
-     SPRING_DATASOURCE_PASSWORD: root
+  app:
+    build: ./app
+    container_name: app
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/resume_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+    expose:
+      - "8080"
 
- nginx:
+  nginx:
     image: nginx:latest
     container_name: nginx
-    ports:
-      - "80:81"  # Maps Host Port 80 to Container Port 81
-    volumes:
-      - ./nginx/nw-ngnx.conf:/etc/nginx/sites-available/nw-ngnx.conf
+    restart: always
     depends_on:
       - app
+    ports:
+      - "80:80"
+      - "81:81"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/sites-available/default
+      - ./nginx/nw-ngnx.conf:/etc/nginx/sites-available/nw-ngnx.conf
     command: >
-      /bin/sh -c "mkdir -p /etc/nginx/sites-enabled && 
-                  ln -s /etc/nginx/sites-available/nw-ngnx.conf /etc/nginx/sites-enabled/nw-ngnx.conf &&
-                  sed -i '/http {/a \    include /etc/nginx/sites-enabled/*;' /etc/nginx/nginx.conf &&
-                  nginx -g 'daemon off;'"
-
-
+      /bin/sh -c "
+      mkdir -p /etc/nginx/sites-enabled &&
+      ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default &&
+      ln -sf /etc/nginx/sites-available/nw-ngnx.conf /etc/nginx/sites-enabled/nw-ngnx.conf &&
+      sed -i '/http {/a \    include /etc/nginx/sites-enabled/*;' /etc/nginx/nginx.conf &&
+      nginx -t &&
+      nginx -g 'daemon off;'"
+      
 volumes:
- mysql_data:
+  mysql_data:
