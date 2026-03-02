@@ -18,7 +18,7 @@ public class ResumeApplication {
 
 // --- DATABASE MODEL ---
 @Entity
-@Table(name = "profiles")
+@Table(name = "profile")
 class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
