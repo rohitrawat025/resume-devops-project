@@ -2,10 +2,12 @@ package com.rohit.resume;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.RestController;
+
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -43,8 +45,6 @@ class Profile {
 
     @Column(name = "summary", columnDefinition = "TEXT")
     private String summary;
-
-    // ----- Getters and Setters -----
 
     public Long getId() {
         return id;
@@ -105,12 +105,11 @@ interface ProfileRepository extends JpaRepository<Profile, Long> {
 
 @RestController
 @RequestMapping("/api/profile")
-@CrossOrigin(origins = "*")   // Allow frontend or external access
+@CrossOrigin(origins = "*")
 class ProfileController {
 
     private final ProfileRepository repo;
 
-    // Constructor Injection (Best Practice)
     public ProfileController(ProfileRepository repo) {
         this.repo = repo;
     }
