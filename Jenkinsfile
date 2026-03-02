@@ -1,26 +1,36 @@
 pipeline {
     agent { label 'agntnd-1' }
 
-    options { timestamps() }
-
     triggers {
-        githubPush()
+        githubPush()   // Auto build on GitHub push
+    }
+
+    options {
+        skipDefaultCheckout(true)
+        timestamps()
     }
 
     stages {
 
         stage('Clean Workspace') {
-            steps { cleanWs() }
+            steps {
+                cleanWs()
+            }
         }
 
         stage('Checkout Code') {
-            steps { checkout scm }
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/rohitrawat025/resume-devops-project.git'
+            }
         }
 
-        stage('Build Docker Images') {
+        stage('Build Containers') {
             steps {
-                sh 'docker compose down || true'
-                sh 'docker compose build --no-cache'
+                sh '''
+                    docker compose down -v || true
+                    docker compose build --no-cache
+                '''
             }
         }
 
@@ -39,7 +49,11 @@ pipeline {
     }
 
     post {
-        success { echo '✅ Deployment Successful' }
-        failure { echo '❌ Deployment Failed' }
+        success {
+            echo "✅ Deployment Successful"
+        }
+        failure {
+            echo "❌ Deployment Failed"
+        }
     }
 }
