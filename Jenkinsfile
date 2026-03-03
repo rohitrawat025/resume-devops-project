@@ -2,7 +2,7 @@ pipeline {
     agent { label 'agntnd-1' }
 
     triggers {
-        githubPush()   // Auto build on GitHub push
+        githubPush()
     }
 
     options {
@@ -42,8 +42,8 @@ pipeline {
 
         stage('Verify Deployment') {
             steps {
-                sh 'sleep 15'
-                sh 'curl -f http://localhost:80/api/profile'
+                sh 'sleep 20'
+                sh 'curl -f http://localhost:81/api/profile'
             }
         }
     }
