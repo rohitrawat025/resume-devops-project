@@ -43,7 +43,10 @@ services:
       - "80:80"
       - "81:81"
     volumes:
+      # Maintains your specific config file mapping
       - ./nginx/nw-ngnx.conf:/etc/nginx/sites-available/nw-ngnx.conf
+      # Mounts the directory for the dynamic index.html
+      - ./nginx/html:/usr/share/nginx/html
     command: >
       /bin/sh -c "
       mkdir -p /etc/nginx/sites-enabled &&
