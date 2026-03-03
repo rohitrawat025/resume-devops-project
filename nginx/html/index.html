@@ -2,51 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Professional Portfolio - Rohit Rawat</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 20px; background: #f4f7f6; }
-        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        .section-title { font-weight: bold; color: #3498db; margin-top: 20px; text-transform: uppercase; }
-        .experience-item { margin-bottom: 15px; border-left: 3px solid #eee; padding-left: 15px; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohit Rawat | DevOps Engineer Portfolio</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="card" id="resume-content">
-        <h1>Loading Profile...</h1>
+
+    <nav>
+        <div class="logo">ROHIT<span>RAWAT</span></div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <h1>Rohit Rawat</h1>
+        <p>DevOps Engineer | AWS | Docker | Jenkins | Terraform</p>
     </div>
 
-    <script>
-        // This script makes the page dynamic
-        async function fetchProfile() {
-            try {
-                // Calls your Spring Boot API
-                const response = await fetch('/app'); 
-                const data = await response.json();
-                const profile = data[0]; // Gets the first profile from the list
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="card" id="profile-info">
+            <p>Loading professional summary...</p>
+        </div>
+    </section>
 
-                const html = `
-                    <h1>${profile.fullName}</h1>
-                    <p><strong>Email:</strong> ${profile.email} | <strong>Location:</strong> ${profile.location}</p>
-                    
-                    <div class="section-title">Summary</div>
-                    <p>${profile.summary}</p>
+    <section id="skills" style="background: #fff;">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="grid">
+            <div class="card">
+                <h3><i class="fas fa-cloud"></i> Infrastructure</h3>
+                <span class="skill-badge">AWS (EC2, S3, IAM)</span>
+                <span class="skill-badge">Terraform (IaC)</span>
+                <span class="skill-badge">Linux Administration</span>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-cubes"></i> DevOps & Tools</h3>
+                <span class="skill-badge">Docker & Compose</span>
+                <span class="skill-badge">Jenkins CI/CD</span>
+                <span class="skill-badge">Nginx Proxy</span>
+                <span class="skill-badge">Git/GitHub</span>
+            </div>
+        </div>
+    </section>
 
-                    <div class="section-title">Professional Experience</div>
-                    ${profile.experiences.map(exp => `
-                        <div class="experience-item">
-                            <strong>${exp.role}</strong> at ${exp.company}<br>
-                            <small>${exp.tenure}</small>
-                            <p>${exp.description}</p>
-                        </div>
-                    `).join('')}
-                `;
-                document.getElementById('resume-content').innerHTML = html;
-            } catch (error) {
-                document.getElementById('resume-content').innerHTML = "<h1>Error loading profile.</h1>";
-            }
-        }
-        fetchProfile();
-    </script>
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="grid" id="dynamic-projects">
+            <div class="card">
+                <h3>Master-Agent Jenkins Pipeline</h3>
+                <p>Automated deployment workflow using distributed architecture on AWS.</p>
+            </div>
+            <div class="card">
+                <h3>Containerized Java App</h3>
+                <p>Multi-stage Docker builds with Nginx reverse proxy integration.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title">Professional Journey</h2>
+        <div id="experience-list">
+            <p>Loading experience...</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>Connect with me: rawatrohit.wrk.25@gmail.com</p>
+        <p>© 2026 Rohit Rawat - DevOps Portfolio</p>
+    </footer>
+
+    <script src="script.js"></script>
+
 </body>
 </html>
