@@ -1,84 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rohit Rawat | DevOps Engineer Portfolio</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rohit Rawat | DevOps Engineer</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
 
+<header>
+    <div class="logo">Rohit<span>Rawat</span></div>
+
     <nav>
-        <div class="logo">ROHIT<span>RAWAT</span></div>
-        <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
+        <ul class="menu">
+            <li><a href="#home">Home</a></li>
+            
+            <li class="dropdown">
+                <a href="#">Profile ▾</a>
+                <ul class="submenu">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                </ul>
+            </li>
+
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
+</header>
 
-    <div class="hero">
-        <h1>Rohit Rawat</h1>
-        <p>DevOps Engineer | AWS | Docker | Jenkins | Terraform</p>
+<section id="home" class="hero">
+    <h1>Hi, I'm Rohit Rawat</h1>
+    <h2 class="typing"></h2>
+    <button onclick="scrollToSection('projects')">View Projects</button>
+</section>
+
+<section id="about">
+    <h2>About Me</h2>
+    <div class="glass-card" id="profile-info">
+        Loading...
     </div>
+</section>
 
-    <section id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="card" id="profile-info">
-            <p>Loading professional summary...</p>
+<section id="skills">
+    <h2>Technical Skills</h2>
+    <div class="skills-grid">
+        <div class="skill">
+            <span>AWS</span>
+            <div class="progress"><div style="width:90%"></div></div>
         </div>
-    </section>
-
-    <section id="skills" style="background: #fff;">
-        <h2 class="section-title">Technical Skills</h2>
-        <div class="grid">
-            <div class="card">
-                <h3><i class="fas fa-cloud"></i> Infrastructure</h3>
-                <span class="skill-badge">AWS (EC2, S3, IAM)</span>
-                <span class="skill-badge">Terraform (IaC)</span>
-                <span class="skill-badge">Linux Administration</span>
-            </div>
-            <div class="card">
-                <h3><i class="fas fa-cubes"></i> DevOps & Tools</h3>
-                <span class="skill-badge">Docker & Compose</span>
-                <span class="skill-badge">Jenkins CI/CD</span>
-                <span class="skill-badge">Nginx Proxy</span>
-                <span class="skill-badge">Git/GitHub</span>
-            </div>
+        <div class="skill">
+            <span>Docker</span>
+            <div class="progress"><div style="width:85%"></div></div>
         </div>
-    </section>
-
-    <section id="projects">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="grid" id="dynamic-projects">
-            <div class="card">
-                <h3>Master-Agent Jenkins Pipeline</h3>
-                <p>Automated deployment workflow using distributed architecture on AWS.</p>
-            </div>
-            <div class="card">
-                <h3>Containerized Java App</h3>
-                <p>Multi-stage Docker builds with Nginx reverse proxy integration.</p>
-            </div>
+        <div class="skill">
+            <span>Jenkins</span>
+            <div class="progress"><div style="width:80%"></div></div>
         </div>
-    </section>
-
-    <section id="experience">
-        <h2 class="section-title">Professional Journey</h2>
-        <div id="experience-list">
-            <p>Loading experience...</p>
+        <div class="skill">
+            <span>Terraform</span>
+            <div class="progress"><div style="width:75%"></div></div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <footer>
-        <p>Connect with me: rawatrohit.wrk.25@gmail.com</p>
-        <p>© 2026 Rohit Rawat - DevOps Portfolio</p>
-    </footer>
+<section id="experience">
+    <h2>Experience</h2>
+    <div id="experience-list"></div>
+</section>
 
-    <script src="script.js"></script>
+<section id="projects">
+    <h2>Featured Projects</h2>
+    <div class="project-grid">
+        <div class="project-card">
+            <h3>CI/CD Pipeline</h3>
+            <p>Jenkins Master-Agent Architecture on AWS</p>
+        </div>
+        <div class="project-card">
+            <h3>Dockerized Java App</h3>
+            <p>Multi-stage Docker Build + Nginx Reverse Proxy</p>
+        </div>
+        <div class="project-card">
+            <h3>Terraform Infrastructure</h3>
+            <p>VPC, EC2, IAM automated provisioning</p>
+        </div>
+    </div>
+</section>
 
+<section id="contact">
+    <h2>Contact</h2>
+    <p>Email: rawatrohit.wrk.25@gmail.com</p>
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>
