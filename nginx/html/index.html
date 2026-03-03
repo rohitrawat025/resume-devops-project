@@ -1,101 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rohit Rawat | DevOps Engineer</title>
-
-<link rel="stylesheet" href="style.css">
-<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohit Rawat | DevOps Engineer Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-    <div class="logo">Rohit<span>Rawat</span></div>
+    <header>
+        <div class="logo">ROHIT<span>RAWAT</span></div>
+        <nav>
+            <ul class="menu">
+                <li><a href="#home">Home</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)">Profile <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                    </ul>
+                </li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <nav>
-        <ul class="menu">
-            <li><a href="#home">Home</a></li>
-            
-            <li class="dropdown">
-                <a href="#">Profile ▾</a>
-                <ul class="submenu">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                </ul>
-            </li>
-
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-</header>
-
-<section id="home" class="hero">
-    <h1>Hi, I'm Rohit Rawat</h1>
-    <h2 class="typing"></h2>
-    <button onclick="scrollToSection('projects')">View Projects</button>
-</section>
-
-<section id="about">
-    <h2>About Me</h2>
-    <div class="glass-card" id="profile-info">
-        Loading...
-    </div>
-</section>
-
-<section id="skills">
-    <h2>Technical Skills</h2>
-    <div class="skills-grid">
-        <div class="skill">
-            <span>AWS</span>
-            <div class="progress"><div style="width:90%"></div></div>
+    <section id="home" class="hero">
+        <h1>Hi, I'm Rohit Rawat</h1>
+        <h2 class="typing"></h2>
+        <div class="hero-btns">
+            <button class="btn-primary" onclick="scrollToSection('projects')">View Projects</button>
+            <button class="btn-secondary" onclick="scrollToSection('contact')">Hire Me</button>
         </div>
-        <div class="skill">
-            <span>Docker</span>
-            <div class="progress"><div style="width:85%"></div></div>
-        </div>
-        <div class="skill">
-            <span>Jenkins</span>
-            <div class="progress"><div style="width:80%"></div></div>
-        </div>
-        <div class="skill">
-            <span>Terraform</span>
-            <div class="progress"><div style="width:75%"></div></div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<section id="experience">
-    <h2>Experience</h2>
-    <div id="experience-list"></div>
-</section>
-
-<section id="projects">
-    <h2>Featured Projects</h2>
-    <div class="project-grid">
-        <div class="project-card">
-            <h3>CI/CD Pipeline</h3>
-            <p>Jenkins Master-Agent Architecture on AWS</p>
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="glass-card" id="profile-info">
+            <p>Gathering intelligence from the database...</p>
         </div>
-        <div class="project-card">
-            <h3>Dockerized Java App</h3>
-            <p>Multi-stage Docker Build + Nginx Reverse Proxy</p>
-        </div>
-        <div class="project-card">
-            <h3>Terraform Infrastructure</h3>
-            <p>VPC, EC2, IAM automated provisioning</p>
-        </div>
-    </div>
-</section>
+    </section>
 
-<section id="contact">
-    <h2>Contact</h2>
-    <p>Email: rawatrohit.wrk.25@gmail.com</p>
-</section>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
