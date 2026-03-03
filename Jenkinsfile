@@ -27,14 +27,8 @@ pipeline {
         stage('Build & Deploy') {
             steps {
                 sh '''
-                    echo "Stopping existing containers and clearing volumes..."
                     docker compose down -v --remove-orphans || true
-                    
-                    echo "Building and starting services with fresh code..."
-                    # --build forces an image rebuild, --force-recreate ensures fresh containers
                     docker compose up --build --force-recreate -d
-                    
-                    echo "Cleaning up unused Docker images..."
                     docker image prune -f
                 '''
             }
@@ -42,9 +36,9 @@ pipeline {
 
         stage('Verify Deployment') {
             steps {
-                echo "Waiting 30 seconds for Java App and MySQL to be healthy..."
+                echo "Waiting 30 seconds for services to stabilize..."
                 sh 'sleep 30'
-                # Verify that the Nginx proxy is responding correctly on port 81
+                // Verification call
                 sh 'curl -f http://localhost:81/app' 
             }
         }
@@ -52,10 +46,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ Deployment Successful: The new UI is now live!"
+            echo "✅ Deployment Successful"
         }
         failure {
-            echo "❌ Deployment Failed: Check docker logs for more info."
+            echo "❌ Deployment Failed - Check the console output above for errors."
         }
     }
 }
